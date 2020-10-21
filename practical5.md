@@ -74,7 +74,7 @@ the given number is cool or not, providing some message with the `print()` funct
 
 # Execution modes in Python
 
-This section requires to read first slides 9 to 16 from the lecture on
+This section requires to first read slides 9 to 16 from the lecture on
 [Programming with Python (2)](/lecture5/).
 
 There are three main ways in which you can run a Python program:
@@ -86,17 +86,17 @@ There are three main ways in which you can run a Python program:
 3. Importing Python code into another Python program.
 
 Actually, the first two ways are equivalent and only the third one is qualitatively
-different from them. To understand that difference we need to learn that Python defines
+different from the first two. To understand that difference we need to learn that Python defines
 for us a variable called [`__name__`](https://docs.python.org/3/library/__main__.html),
 in which Python stores the name of the _scope_ in which top-level code executes. This
-_scope_ will be either the name of the module to which the code belongs to when running
+_scope name_ will be either the name of the module to which the code belongs to when running
 in the previously described situation (3), or the value `__main__`, when running in the
 previously described situations (1) or (2).
 
 Create a text file called `thismodule.py` and put the following line on it:
 
 ```
-print("__name__: ", __name__)
+print("__name__: %s" %(__name__))
 ```
 
 Now let's call this Python script from the Unix shell command line:
@@ -106,10 +106,10 @@ $ python thismodule.py
 __name__: __main__
 ```
 
-So, we see that when calling the Python script `thismodule.py` from the Unix shell
+We can see that when calling the Python script `thismodule.py` from the Unix shell
 command line, the `__name__` variable takes the value `__main__`. Now start the
-Python shell interpreter and directly type the `__name__` variable name and hit
-the `Enter` key:
+Python shell interpreter (calling `python` or `python3` from the Unix command line
+without arguments), directly type the `__name__` variable and hit the `Enter` key:
 
 ```
 >>> __name__
@@ -173,18 +173,19 @@ are relatively prime should be encapsulated into a function called
 `main(x, y)` with two arguments `x` and `y` corresponding to the two
 numbers to be evaluated. This function should return a character string
 value set to `yes` when `x` and `y` are relatively prime and `no` when
-they are not.
+they are not. This function should not print anything on the screen.
 
 3. When the script is called from the command line without the two
 arguments corresponding to the two positive integer values to evaluate,
-then the user should get a message like:
+then for a script called, e.g., `relprime.py`, the user should get a
+message like:
 
-  ```
-  relprime.py <x> <y>
-  ```
-  for a script called `relprime.py`.
+```
+$ python relprime.py
+error: relprime.py <x> <y>
+```
 
 4. When the script is properly called from the command line with the two
 arguments corresponding to the two positive integer values to evaluate,
-then the script should call the previously defined `main(x, y)` function
-and print the result in the terminal screen.
+then the script should call the previously defined `main(x, y)` function,
+take its result and print it in the terminal screen.
