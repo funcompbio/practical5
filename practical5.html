@@ -29,17 +29,19 @@ $ python --version</code></pre>
 <p>We say that a positive integer number <code>x</code> is <strong>cool</strong> if this number is equal to the sum of any sequence of increasing consecutive positive integer numbers smaller or equal than <code>x</code>, starting on 1. For instance, number 1 is cool because the only positive integer number smaller or equal than 1 is 1 itself; number 2 is not cool because neither 1 nor 1+2 are equal to 2; number 3 is cool because 3=1+2. Until 10, numbers 4, 5, 7, 8 and 9 are not cool. However, 6=1+2+3 and 10=1+2+3+4 are indeed cool.</p>
 <p>Implement a program in Python that asks for one positive integer number and says whether the given number is cool or not, providing some message with the <code>print()</code> function.</p>
 <h1 id="bundling-lines-together-into-functions">Bundling lines together into functions</h1>
-<p>Programming instructions performing a specific task, such as the calculation of a particular value or decision, can be bundled together under a so-called <a href="https://en.wikipedia.org/wiki/Subroutine">function</a>; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>).</p>
-<p>Edit the previous two programs and, in each of them, bundle together the code into a function called <code>main()</code> and put call to that function main at the bottom of the file, i.e.:</p>
+<p>Programming instructions performing a specific task, such as the calculation of a particular value or decision, can be bundled together under a so-called <a href="https://en.wikipedia.org/wiki/Subroutine">function</a>; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>.</p>
+<p>Edit the previous two programs and, in each of them, bundle together the code into a function called <code>main()</code> and put a call to that function <code>main()</code> at the bottom of the file, i.e.:</p>
 <pre><code>def main() :
   ## CODE OF YOUR PYTHON PROGRAM
   ## INDENTED TO BECOME BUNDLED
   ## INTO A FUNCTION CALLED main()
+  ## THIS IS THE SO-CALLED &quot;BODY&quot;
+  ## OF THE FUNCTION
 
-main()</code></pre>
-<p>Verify that the program runs in exactly the same way as before these modifications. Now edit each of the programs again with the following two new modifications:</p>
+main() ## THIS IS THE &quot;CALL&quot; TO THE FUNCTION main()</code></pre>
+<p>Verify that the program runs in exactly the same way as before you did these modifications. Now edit each of the programs again with the following two new updates:</p>
 <ol type="1">
-<li>Move the instructions that read the input outside the <code>main()</code> function and place them right before the call to the <code>main()</code> function.</li>
+<li>Move the instructions that read the input outside the body of the <code>main()</code> function and place them right before the call to the <code>main()</code> function.</li>
 <li>Parametrize the <code>main()</code> function with the variables that store the input, i.e., writing <code>main(x)</code> if <code>x</code> were the variable that stores the input.</li>
 </ol>
 <p>Verify that the program runs in exactly the same way as before these modifications. Try to understand the flow of the input information into the code that makes the actual calculations.</p>
@@ -53,18 +55,18 @@ main()</code></pre>
 <p>Actually, the first two ways are equivalent and only the third one is qualitatively different from the first two. To understand that difference we need to learn that Python defines for us a variable called <a href="https://docs.python.org/3/library/__main__.html"><code>__name__</code></a>, in which Python stores the name of the <em>scope</em> in which top-level code executes. This <em>scope name</em> will be either the name of the module to which the code belongs to, when running in the previously described situation (3), or the value <code>__main__</code>, when running in one of the previously situations described in (1) and (2).</p>
 <p>Create a text file called <code>thismodule.py</code> and put the following line on it:</p>
 <pre><code>print(&quot;__name__: %s&quot; %(__name__))</code></pre>
-<p>Now let’s call this Python script from the Unix shell command line:</p>
+<p>Now let’s call this Python program from the Unix shell command line:</p>
 <pre><code>$ python thismodule.py 
 __name__: __main__</code></pre>
-<p>We can see that when calling the Python script <code>thismodule.py</code> from the Unix shell command line, the <code>__name__</code> variable takes the value <code>__main__</code>. Now start the Python shell interpreter (calling <code>python</code> or <code>python3</code> from the Unix command line without arguments), directly type the <code>__name__</code> variable and hit the <code>Enter</code> key:</p>
+<p>We can see that when calling the Python program <code>thismodule.py</code> from the Unix shell command line, the <code>__name__</code> variable takes the value <code>__main__</code>. Now start the Python shell interpreter (calling <code>python</code> or <code>python3</code> from the Unix command line without arguments), directly type the <code>__name__</code> variable and hit the <code>Enter</code> key:</p>
 <pre><code>&gt;&gt;&gt; __name__
 `__main__`</code></pre>
-<p>We also see here that in the Python interactive prompt <code>__name__</code> takes the value <code>__main__</code>. Finally, from this same prompt let’s import the code in <code>thismodule.py</code> as if we were importing it in some other Python script:</p>
+<p>We also see here that in the Python interactive prompt <code>__name__</code> takes the value <code>__main__</code>. Finally, from this same prompt let’s import the code in <code>thismodule.py</code> as if we were importing it in some other Python program:</p>
 <pre><code>&gt;&gt;&gt; import thismodule
 __name__: thismodule</code></pre>
 <p>Differentely to the previous two execution modes, when importing Python code as a <em>module</em> (see the slide about modules on <a href="https://funcompbio.github.io/lecture5/#15">this lecture</a>), the <code>__name__</code> variable takes the value of the module name, defined by the filename containing the imported code, without the <code>.py</code> extension.</p>
 <h1 id="how-to-take-arguments-from-the-command-line.">How to take arguments from the command line.</h1>
-<p>Programs such as Unix commands, may take the so-called <a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line arguments</a>, which allow programs to read input information at the moment that they are running. For instance, the <code>cp</code> file copying command requires two arguments, the file to copy and the target directory or file where it should be copied, for instance:</p>
+<p>Programs such as Unix commands, may take the so-called <a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line arguments</a>, which allow programs to read different input each time we run them For instance, the <code>cp</code> file-copying command requires two arguments, the file to copy and the target directory or file where it should be copied, for instance:</p>
 <pre><code>$ cp ~/Download/rawData.zip .</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">Command-line arguments</a> allow us to re-use programs with different input and enable automatizing <a href="https://en.wikipedia.org/wiki/Workflow">workflows</a>. We will see in this section how can we take command-line arguments through the code in our own Python programs.</p>
 <p>We have seen in the previous section that the <code>__name__</code> variable allows us to detect in our Python code when it is executing from the Unix shell command line. In this particular execution mode, we can use the Python module <code>sys</code> to fetch argument values given by the user in the command line. To illustrate this functionality, edit the previous file <code>thismodule.py</code> and add the following lines:</p>
@@ -74,7 +76,7 @@ __name__: thismodule</code></pre>
   while i &lt; len(sys.argv) :
     print(&quot;argument vector position %d: %s&quot; %(i, sys.argv[i]))
     i = i + 1</code></pre>
-<p>If you call this script in the Unix command line with the arguments <code>give me 5</code> you should be getting the following output:</p>
+<p>If you call this program from the Unix command line with the arguments <code>give me 5</code>, you should be getting the following output:</p>
 <pre><code>$ python thismodule.py give me 5
 __name__: __main__
 argument vector position 0: thismodule.py
@@ -85,11 +87,11 @@ argument vector position 3: 5</code></pre>
 <p>Make a new version of the Python program that decides whether two positive integer numbers are relatively prime with the following characteristics:</p>
 <ol type="1">
 <li><p>Instead of asking the user to enter two values, it should take them from the Unix command-line arguments.</p></li>
-<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>). The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function should not print anything on the screen.</p></li>
-<li><p>When the script is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a script called, e.g., <code>relprime.py</code>, the user should get a message like:</p></li>
+<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
+<li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p></li>
 </ol>
 <pre><code>$ python relprime.py
 error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre>
 <ol start="4" type="1">
-<li>When the script is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the script should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</li>
+<li>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</li>
 </ol>
