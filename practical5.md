@@ -10,6 +10,7 @@ The learning objectives for this practical are:
 
  * Implement a program in Python that decides if two given numbers are relatively primes.
  * Implement a program in Python that decides if a given number is cool.
+ * Bundling lines together into functions.
  * Execution modes in Python.
  * How to take arguments from the command line.
  * Make syntax errors in Python.
@@ -24,12 +25,12 @@ to focus the time of this practical in addressing the technical challenges
 of running a Python program and correcting run-time errors.
 
 Whenever you are stuck with an error, please consult the section
-entitled "Debugging" from [practical 4](/practical4/).
+entitled "Debugging" from [practical 4](/practical4#debugging/).
 
 # Setup and background
 
 To do this practical you need an installation of Python version 3. You can find
-the instructions in the [setup](/setup/) link on how to install Python version 3
+the instructions in the [setup](/setup#python-and-jupyter-notebook/) link on how to install Python version 3
 in your system. Once Python is installed, you should be able to call it from
 the shell in the terminal window. You can check whether that is possible by typing:
 
@@ -72,10 +73,41 @@ However, 6=1+2+3 and 10=1+2+3+4 are indeed cool.
 Implement a program in Python that asks for one positive integer number and says whether
 the given number is cool or not, providing some message with the `print()` function.
 
-# Execution modes in Python
+# Bundling lines together into functions
 
-This section requires to first read slides 9 to 16 from the lecture on
-[Programming with Python (2)](/lecture5/).
+Programming instructions performing a specific task, such as the calculation
+of a particular value or decision, can be bundled together under a so-called
+[function](https://en.wikipedia.org/wiki/Subroutine); see the slides on
+functions from [this lecture](https://funcompbio.github.io/lecture5/#11)).
+
+Edit the previous two programs and, in each of them, bundle together the
+code into a function called `main()` and put call to that function main
+at the bottom of the file, i.e.:
+
+```
+def main() :
+  ## CODE OF YOUR PYTHON PROGRAM
+  ## INDENTED TO BECOME BUNDLED
+  ## INTO A FUNCTION CALLED main()
+
+main()
+```
+Verify that the program runs in exactly the same way as before these
+modifications. Now edit each of the programs again with the following
+two new modifications:
+
+  1. Move the instructions that read the input outside the `main()`
+    function and place them right before the call to the `main()`
+    function.
+  2. Parametrize the `main()` function with the variables that store
+    the input, i.e., writing `main(x)` if `x` were the variable that
+    stores the input.
+
+Verify that the program runs in exactly the same way as before these
+modifications. Try to understand the flow of the input information into
+the code that makes the actual calculations.
+
+# Execution modes in Python
 
 There are three main ways in which you can run a Python program:
 
@@ -83,15 +115,17 @@ There are three main ways in which you can run a Python program:
 
 2. Interactively, through the Python shell interpreter.
 
-3. Importing Python code into another Python program.
+3. Importing Python code as a so-called _module_ into another Python program.
 
-Actually, the first two ways are equivalent and only the third one is qualitatively
-different from the first two. To understand that difference we need to learn that Python defines
-for us a variable called [`__name__`](https://docs.python.org/3/library/__main__.html),
-in which Python stores the name of the _scope_ in which top-level code executes. This
-_scope name_ will be either the name of the module to which the code belongs to when running
-in the previously described situation (3), or the value `__main__`, when running in the
-previously described situations (1) or (2).
+Actually, the first two ways are equivalent and only the third one is
+qualitatively different from the first two. To understand that difference we
+need to learn that Python defines for us a variable called
+[`__name__`](https://docs.python.org/3/library/__main__.html),
+in which Python stores the name of the _scope_ in which top-level code
+executes. This _scope name_ will be either the name of the module to which
+the code belongs to, when running in the previously described situation (3),
+or the value `__main__`, when running in one of the previously situations
+described in (1) and (2).
 
 Create a text file called `thismodule.py` and put the following line on it:
 
@@ -106,35 +140,56 @@ $ python thismodule.py
 __name__: __main__
 ```
 
-We can see that when calling the Python script `thismodule.py` from the Unix shell
-command line, the `__name__` variable takes the value `__main__`. Now start the
-Python shell interpreter (calling `python` or `python3` from the Unix command line
-without arguments), directly type the `__name__` variable and hit the `Enter` key:
+We can see that when calling the Python script `thismodule.py` from the Unix
+shell command line, the `__name__` variable takes the value `__main__`. Now
+start the Python shell interpreter (calling `python` or `python3` from the
+Unix command line without arguments), directly type the `__name__` variable
+and hit the `Enter` key:
 
 ```
 >>> __name__
 `__main__`
 ```
 
-We also see here that in the Python interactive prompt `__name__` takes the value
-`__main__`. Finally, from this same prompt let's import the code in `thismodule.py`
-as if we were importing it in some other Python script:
+We also see here that in the Python interactive prompt `__name__` takes the
+value `__main__`. Finally, from this same prompt let's import the code in
+`thismodule.py` as if we were importing it in some other Python script:
 
 ```
 >>> import thismodule
 __name__: thismodule
 ```
 
-Differentely to the previous two execution modes, when importing Python code as
- a module, the `__name__` variable takes the value of the module name.
+Differentely to the previous two execution modes, when importing Python code
+as a _module_ (see the slide about modules on
+[this lecture](https://funcompbio.github.io/lecture5/#15)),
+the `__name__` variable takes the value of the module name, defined by the
+filename containing the imported code, without the `.py` extension.
 
 # How to take arguments from the command line.
 
-We have seen in the previous section that the `__name__` variable allows us to
-detect in our Python code when it is executing from the Unix shell command line.
-In this particular execution mode, we can use the Python module `sys` to fetch
-argument values given by the user in the command line. To illustrate this
-functionality, edit the previous file `thismodule.py` and add the following lines:
+Programs such as Unix commands, may take the so-called
+[command-line arguments](https://en.wikipedia.org/wiki/Command-line_interface#Arguments),
+which allow programs to read input information at the moment that they
+are running. For instance, the `cp` file copying command requires
+two arguments, the file to copy and the target directory or file where it
+should be copied, for instance:
+
+```
+$ cp ~/Download/rawData.zip .
+```
+[Command-line arguments](https://en.wikipedia.org/wiki/Command-line_interface#Arguments)
+allow us to re-use programs with different input and enable automatizing
+[workflows](https://en.wikipedia.org/wiki/Workflow). We will see in this
+section how can we take command-line arguments through the code in our own
+Python programs.
+
+We have seen in the previous section that the `__name__` variable allows us
+to detect in our Python code when it is executing from the Unix shell
+command line. In this particular execution mode, we can use the Python
+module `sys` to fetch argument values given by the user in the command line.
+To illustrate this functionality, edit the previous file `thismodule.py` and
+add the following lines:
 
 ```
 if __name__ == "__main__" :
@@ -171,7 +226,9 @@ from the Unix command-line arguments.
 2. The code doing the actual calculation on whether two given numbers
 are relatively prime should be encapsulated into a function called
 `main(x, y)` with two arguments `x` and `y` corresponding to the two
-numbers to be evaluated. This function should return a character string
+numbers to be evaluated; see the slides on functions from
+[this lecture](https://funcompbio.github.io/lecture5/#11)).
+The function `main(x, y)` should return a character string
 value set to `yes` when `x` and `y` are relatively prime and `no` when
 they are not. This function should not print anything on the screen.
 
