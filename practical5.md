@@ -78,27 +78,29 @@ the given number is cool or not, providing some message with the `print()` funct
 Programming instructions performing a specific task, such as the calculation
 of a particular value or decision, can be bundled together under a so-called
 [function](https://en.wikipedia.org/wiki/Subroutine); see the slides on
-functions from [this lecture](https://funcompbio.github.io/lecture5/#11)).
+functions from [this lecture](https://funcompbio.github.io/lecture5/#11).
 
 Edit the previous two programs and, in each of them, bundle together the
-code into a function called `main()` and put call to that function main
-at the bottom of the file, i.e.:
+code into a function called `main()` and put a call to that function
+`main()` at the bottom of the file, i.e.:
 
 ```
 def main() :
   ## CODE OF YOUR PYTHON PROGRAM
   ## INDENTED TO BECOME BUNDLED
   ## INTO A FUNCTION CALLED main()
+  ## THIS IS THE SO-CALLED "BODY"
+  ## OF THE FUNCTION
 
-main()
+main() ## THIS IS THE "CALL" TO THE FUNCTION main()
 ```
-Verify that the program runs in exactly the same way as before these
-modifications. Now edit each of the programs again with the following
-two new modifications:
+Verify that the program runs in exactly the same way as before you did
+these modifications. Now edit each of the programs again with the following
+two new updates:
 
-  1. Move the instructions that read the input outside the `main()`
-    function and place them right before the call to the `main()`
-    function.
+  1. Move the instructions that read the input outside the body of
+    the `main()` function and place them right before the call to the
+    `main()` function.
   2. Parametrize the `main()` function with the variables that store
     the input, i.e., writing `main(x)` if `x` were the variable that
     stores the input.
@@ -133,18 +135,18 @@ Create a text file called `thismodule.py` and put the following line on it:
 print("__name__: %s" %(__name__))
 ```
 
-Now let's call this Python script from the Unix shell command line:
+Now let's call this Python program from the Unix shell command line:
 
 ```
 $ python thismodule.py 
 __name__: __main__
 ```
 
-We can see that when calling the Python script `thismodule.py` from the Unix
-shell command line, the `__name__` variable takes the value `__main__`. Now
-start the Python shell interpreter (calling `python` or `python3` from the
-Unix command line without arguments), directly type the `__name__` variable
-and hit the `Enter` key:
+We can see that when calling the Python program `thismodule.py` from the
+Unix shell command line, the `__name__` variable takes the value `__main__`.
+Now start the Python shell interpreter (calling `python` or `python3` from
+the Unix command line without arguments), directly type the `__name__`
+variable and hit the `Enter` key:
 
 ```
 >>> __name__
@@ -153,7 +155,7 @@ and hit the `Enter` key:
 
 We also see here that in the Python interactive prompt `__name__` takes the
 value `__main__`. Finally, from this same prompt let's import the code in
-`thismodule.py` as if we were importing it in some other Python script:
+`thismodule.py` as if we were importing it in some other Python program:
 
 ```
 >>> import thismodule
@@ -170,9 +172,9 @@ filename containing the imported code, without the `.py` extension.
 
 Programs such as Unix commands, may take the so-called
 [command-line arguments](https://en.wikipedia.org/wiki/Command-line_interface#Arguments),
-which allow programs to read input information at the moment that they
-are running. For instance, the `cp` file copying command requires
-two arguments, the file to copy and the target directory or file where it
+which allow programs to read different input each time we run them
+For instance, the `cp` file-copying command requires two arguments, the
+file to copy and the target directory or file where it
 should be copied, for instance:
 
 ```
@@ -200,8 +202,8 @@ if __name__ == "__main__" :
     i = i + 1
 ```
 
-If you call this script in the Unix command line with the arguments
-`give me 5` you should be getting the following output:
+If you call this program from the Unix command line with the arguments
+`give me 5`, you should be getting the following output:
 
 ```
 $ python thismodule.py give me 5
@@ -227,14 +229,14 @@ from the Unix command-line arguments.
 are relatively prime should be encapsulated into a function called
 `main(x, y)` with two arguments `x` and `y` corresponding to the two
 numbers to be evaluated; see the slides on functions from
-[this lecture](https://funcompbio.github.io/lecture5/#11)).
+[this lecture](https://funcompbio.github.io/lecture5/#11).
 The function `main(x, y)` should return a character string
 value set to `yes` when `x` and `y` are relatively prime and `no` when
-they are not. This function should not print anything on the screen.
+they are not. This function **should not** print anything on the screen.
 
-3. When the script is called from the command line without the two
+3. When the program is called from the command line without the two
 arguments corresponding to the two positive integer values to evaluate,
-then for a script called, e.g., `relprime.py`, the user should get a
+then for a program called, e.g., `relprime.py`, the user should get a
 message like:
 
 ```
@@ -242,7 +244,7 @@ $ python relprime.py
 error: relprime.py <x> <y>
 ```
 
-4. When the script is properly called from the command line with the two
+4. When the program is properly called from the command line with the two
 arguments corresponding to the two positive integer values to evaluate,
-then the script should call the previously defined `main(x, y)` function,
+then the program should call the previously defined `main(x, y)` function,
 take its result and print it in the terminal screen.
