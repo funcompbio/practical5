@@ -370,6 +370,7 @@ Now, improve this program with the following two enhancements:
   which encodes a protein that acts as a
   [receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2](https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html),
   the causative agent of coronavirus disease-2019 (COVID-19), e.g.:
+
       ```
       $ python tallynt.py ACE2.fa
       ```

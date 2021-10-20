@@ -145,7 +145,8 @@ The DNA sequence from gene:
 has a total of 1608 nucleotides</code></pre>
 <p>Now, improve this program with the following two enhancements:</p>
 <ol type="1">
-<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272">angiotensin converting enzyme 2 (<em>ACE2</em>) gene</a>, which encodes a protein that acts as a <a href="https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html">receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2</a>, the causative agent of coronavirus disease-2019 (COVID-19), e.g.: <code>$ python tallynt.py ACE2.fa</code></p></li>
+<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272">angiotensin converting enzyme 2 (<em>ACE2</em>) gene</a>, which encodes a protein that acts as a <a href="https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html">receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2</a>, the causative agent of coronavirus disease-2019 (COVID-19), e.g.:</p>
+<pre><code>$ python tallynt.py ACE2.fa</code></pre></li>
 <li><p>Enable the program to take a second argument where we specify one of the four possible nucleotides (<code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>) and it calculates the number of occurrences of that nucleotide in the DNA sequence of the gene, e.g.:</p>
 <pre><code>$ python tallynt.py HBB.fa A</code></pre>
 <p>You can verify whether the calculation is correct by doing it also in Unix with the following command line:</p>
