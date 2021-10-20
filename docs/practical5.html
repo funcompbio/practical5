@@ -6,6 +6,7 @@
 <li>Bundling lines together into functions.</li>
 <li>Execution modes in Python.</li>
 <li>How to take arguments from the command line.</li>
+<li>Reading DNA from FASTA files.</li>
 <li>Make syntax errors in Python.</li>
 <li>Correct syntax errors in Python.</li>
 <li>Debug your program when it doesn’t work.</li>
@@ -103,7 +104,7 @@ error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre></li>
 <p>First, let’s download the FASTA file of the DNA of the human <em>HBB</em> gene following these steps:</p>
 <ol type="1">
 <li><p>Go to the NCBI web page for the human <em>HBB</em> gene at this <a href="https://www.ncbi.nlm.nih.gov/gene/3043">link</a>.</p></li>
-<li><p>Click on <code>Download Datasets</code> and in the popup window the <code>Gene sequences (FASTA) option should be checked. Press the   button</code>Download<code>. A ZIP file called</code>HBB_datasets.zip` will be downloaded, store it into the folder for this practical.</p></li>
+<li><p>Click on <code>Download Datasets</code> and in the popup window the <code>Gene sequences (FASTA)</code> option should be checked. Press the button <code>Download</code>. A ZIP file called <code>HBB_datasets.zip</code> will be downloaded, store it into the folder for this practical.</p></li>
 <li><p>Uncompress the file <code>HBB_datasets.zip</code> and copy the file <code>ncbi_dataset/data/gene.fna</code> to your CWD under the name <code>HBB.fa</code>. This is the FASTA file containing the DNA of the human <em>HBB</em> gene.</p></li>
 <li><p>Examine the first lines of this FASTA file with the Unix <code>head</code> command. The result should be as follows:</p>
 <pre><code>$ head HBB.fa
@@ -118,7 +119,7 @@ AACCTCAAGGGCACCTTTGCCACACTGAGTGAGCTGCACTGTGACAAGCTGCACGTGGATCCTGAGAACT
 TCAGGGTGAGTCTATGGGACGCTTGATGTTTTCTTTCCCCTTCTTTTCTATGGTTAAGTTCATGTCATAG
 GAAGGGGATAAGTAACAGGGTACAGTTTAGAATGGGAAACAGACGAATGATTGCATCAGTGTGGAAGTCT</code></pre></li>
 </ol>
-<p>Next, create a new text file called <code>tallynt.py</code> with the following contents:</p>
+<p>Next, create a new text file called <code>tallynt.py</code> with the following Python program:</p>
 <pre><code>f = open(&quot;HBB.fa&quot;)
 line = f.readline()                  ## read the first line from HBB.fa
 print(&quot;The DNA sequence from gene:&quot;)
@@ -132,14 +133,19 @@ while (line) :                       ## while &#39;line&#39; is not empty
 v = list(seq)                        ## convert &#39;seq&#39; into a vector &#39;v&#39;
 n = len(v)                           ## calculate the length of vector &#39;v&#39;
 print(&quot;has a total of %d nucleotides&quot; %(n))</code></pre>
-<p>This Python program reads the lines from <code>HBB.fa</code> and concanates them into a single character strings called <code>seq</code>, which afterwards is converted into a vector <code>v</code> from which we calculate its length, corresponding to the total number of nucleotides in the DNA encoding the gene <em>HBB</em>. It includes a call to the method <a href="https://www.w3schools.com/python/ref_string_strip.asp"><code>strip()</code></a>, which when called from a <code>str</code> object, it removes any leading and trailing spaces and newlines. When you run this program, the output must be as follows:</p>
+<p>This Python program reads the lines from <code>HBB.fa</code> and concanates them into a single character string called <code>seq</code>, which afterwards is converted into a vector <code>v</code>, from which we calculate its length, corresponding to the total number of nucleotides in the DNA encoding the gene <em>HBB</em>. It includes a call to the following functions:</p>
+<ul>
+<li><a href="https://www.w3schools.com/python/ref_func_open.asp"><code>open()</code></a>, which opens a text file and returns an object that allows one to read lines from that file using the method <a href="https://www.w3schools.com/python/ref_file_readline.asp"><code>f.readline()</code></a>, for some file object <code>f</code>.</li>
+<li><a href="https://www.w3schools.com/python/ref_string_strip.asp"><code>str.strip()</code></a>, where <code>str</code> is some character string object and it removes any leading and trailing spaces and newlines from that string.</li>
+</ul>
+<p>When you run this program, the output must be as follows:</p>
 <pre><code>$ python tallynt.py
 The DNA sequence from gene:
 &gt;NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
 has a total of 1608 nucleotides</code></pre>
 <p>Now, improve this program with the following two enhancements:</p>
 <ol type="1">
-<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272"><em>ACE2</em> gene</a>, which encodes a protein that acts as a receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2, the causative agent of coronavirus disease-2019 (COVID-19), e.g.: <code>$ python tallynt.py ACE2.fa</code></p></li>
+<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272">angiotensin converting enzyme 2 (<em>ACE2</em>) gene</a>, which encodes a protein that acts as a <a href="https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html">receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2</a>, the causative agent of coronavirus disease-2019 (COVID-19), e.g.: <code>$ python tallynt.py ACE2.fa</code></p></li>
 <li><p>Enable the program to take a second argument where we specify one of the four possible nucleotides (<code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>) and it calculates the number of occurrences of that nucleotide in the DNA sequence of the gene, e.g.:</p>
 <pre><code>$ python tallynt.py HBB.fa A</code></pre>
 <p>You can verify whether the calculation is correct by doing it also in Unix with the following command line:</p>

@@ -13,6 +13,7 @@ The learning objectives for this practical are:
  * Bundling lines together into functions.
  * Execution modes in Python.
  * How to take arguments from the command line.
+ * Reading DNA from FASTA files.
  * Make syntax errors in Python.
  * Correct syntax errors in Python.
  * Debug your program when it doesn't work.
@@ -291,7 +292,7 @@ following these steps:
 1. Go to the NCBI web page for the human _HBB_ gene at this
   [link](https://www.ncbi.nlm.nih.gov/gene/3043).
 2. Click on `Download Datasets` and in the popup window the
-  `Gene sequences (FASTA) option should be checked. Press the
+  `Gene sequences (FASTA)` option should be checked. Press the
   button `Download`. A ZIP file called `HBB_datasets.zip` will
   be downloaded, store it into the folder for this practical.
 3. Uncompress the file `HBB_datasets.zip` and copy the file
@@ -318,7 +319,7 @@ following these steps:
       ```
 
 Next, create a new text file called `tallynt.py` with the following
-contents:
+Python program:
 
 ```
 f = open("HBB.fa")
@@ -337,13 +338,21 @@ print("has a total of %d nucleotides" %(n))
 ```
 
 This Python program reads the lines from `HBB.fa` and concanates them
-into a single character strings called `seq`, which afterwards is
-converted into a vector `v` from which we calculate its length,
+into a single character string called `seq`, which afterwards is
+converted into a vector `v`, from which we calculate its length,
 corresponding to the total number of nucleotides in the DNA encoding
-the gene _HBB_. It includes a call to the method
-[`strip()`](https://www.w3schools.com/python/ref_string_strip.asp),
-which when called from a `str` object, it removes any leading and trailing
-spaces and newlines. When you run this program, the output must be as follows:
+the gene _HBB_. It includes a call to the following functions:
+
+* [`open()`](https://www.w3schools.com/python/ref_func_open.asp),
+  which opens a text file and returns an object that allows one to read
+  lines from that file using the method
+  [`f.readline()`](https://www.w3schools.com/python/ref_file_readline.asp),
+  for some file object `f`.
+* [`str.strip()`](https://www.w3schools.com/python/ref_string_strip.asp),
+  where `str` is some character string object and it removes any leading and
+  trailing spaces and newlines from that string.
+
+When you run this program, the output must be as follows:
 
 ```
 $ python tallynt.py
@@ -357,10 +366,10 @@ Now, improve this program with the following two enhancements:
   argument in the command line, so that it can work with any FASTA
   file containing DNA from any gene. Run it, for instance, with the
   DNA from the the
-  [_ACE2_ gene](https://www.ncbi.nlm.nih.gov/gene/59272), which
-  encodes a protein that acts as a receptor for the spike glycoprotein
-  of the human coronavirus SARS-CoV-2, the causative agent of
-  coronavirus disease-2019 (COVID-19), e.g.:
+  [angiotensin converting enzyme 2 (_ACE2_) gene](https://www.ncbi.nlm.nih.gov/gene/59272),
+  which encodes a protein that acts as a
+  [receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2](https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html),
+  the causative agent of coronavirus disease-2019 (COVID-19), e.g.:
       ```
       $ python tallynt.py ACE2.fa
       ```
