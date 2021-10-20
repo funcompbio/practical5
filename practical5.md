@@ -49,7 +49,8 @@ $ python3 --version
 ```
 
 If this is your case, then whenever the executable `python` is invoked in the rest of
-this practical, please use `python3` instead.
+this practical, please use `python3` instead. Make a directory for this practical,
+called `practical5`, and store there the files generated during the practical.
 
 # Relatively prime numbers
 
@@ -103,11 +104,27 @@ two new updates:
     `main()` function.
   2. Parametrize the `main()` function with the variables that store
     the input, i.e., writing `main(x)` if `x` were the variable that
-    stores the input.
+    stores the input. At this point, verify that the program runs in
+    exactly the same way as before.
+  3. Replace the calls to the `print()` function, printing the result
+     message, by an assignment of that result message to a variable
+     called `res`. Insert the following line as last line in the body
+     of the `main()` function:
+
+      ```
+      return(res)
+      ```
+  4. Replace the call to the function `main()` by:
+
+      ```
+      print(main(x))
+      ```
+   assuming that `x` is the name of the variable that stores the input.
 
 Verify that the program runs in exactly the same way as before these
 modifications. Try to understand the flow of the input information into
-the code that makes the actual calculations.
+the code that makes the actual calculations and the flow of the output
+from the `main()` function to the screen.
 
 # Execution modes in Python
 
@@ -239,12 +256,130 @@ arguments corresponding to the two positive integer values to evaluate,
 then for a program called, e.g., `relprime.py`, the user should get a
 message like:
 
-```
-$ python relprime.py
-error: relprime.py <x> <y>
-```
+    ```
+    $ python relprime.py
+    error: relprime.py <x> <y>
+    ```
 
 4. When the program is properly called from the command line with the two
 arguments corresponding to the two positive integer values to evaluate,
 then the program should call the previously defined `main(x, y)` function,
 take its result and print it in the terminal screen.
+
+# Reading DNA from FASTA files
+
+Following the explanation from Wikipedia, in bioinformatics
+the [**FASTA format**](https://en.wikipedia.org/wiki/FASTA_format) is a
+text-based [file format](https://en.wikipedia.org/wiki/FASTA_format)
+for representing sequences of either
+[nucleic acids](https://en.wikipedia.org/wiki/Nucleic_acid_sequence) or
+[amino acids](https://en.wikipedia.org/wiki/Amino_acid). Here, we want
+to learn how can we read from a Python program the DNA sequence of a gene
+stored in FASTA format within a text file and make some simple summaries
+of the DNA content from that gene. We are going to illustrate
+that task with the 
+[_hemoglobin subunit beta_ (HBB) gene](https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta), which is a gene coding for a protein that forms part of
+[haemoglobin](https://en.wikipedia.org/wiki/Hemoglobin), the molecule
+responsible for transporting oxygen in
+[red blood cells](https://en.wikipedia.org/wiki/Red_blood_cell) of
+almost all
+[vertebrates](https://en.wikipedia.org/wiki/Vertebrate).
+
+First, let's download the FASTA file of the DNA of the human _HBB_ gene
+following these steps:
+
+1. Go to the NCBI web page for the human _HBB_ gene at this
+  [link](https://www.ncbi.nlm.nih.gov/gene/3043).
+2. Click on `Download Datasets` and in the popup window the
+  `Gene sequences (FASTA) option should be checked. Press the
+  button `Download`. A ZIP file called `HBB_datasets.zip` will
+  be downloaded, store it into the folder for this practical.
+3. Uncompress the file `HBB_datasets.zip` and copy the file
+      ```
+      ncbi_dataset/data/gene.fna
+      ```
+   to your CWD under the name `HBB.fa`. This is the FASTA file
+   containing the DNA of the human _HBB_ gene.
+4. Examine the first lines of this FASTA file with the Unix
+   `head` command. The result should be as follows:
+
+      ```
+      $ head HBB.fa
+      >NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+      ACATTTGCTTCTGACACAACTGTGTTCACTAGCAACCTCAAACAGACACCATGGTGCATCTGACTCCTGA
+      GGAGAAGTCTGCCGTTACTGCCCTGTGGGGCAAGGTGAACGTGGATGAAGTTGGTGGTGAGGCCCTGGGC
+      AGGTTGGTATCAAGGTTACAAGACAGGTTTAAGGAGACCAATAGAAACTGGGCATGTGGAGACAGAGAAG
+      ACTCTTGGGTTTCTGATAGGCACTGACTCTCTCTGCCTATTGGTCTATTTTCCCACCCTTAGGCTGCTGG
+      TGGTCTACCCTTGGACCCAGAGGTTCTTTGAGTCCTTTGGGGATCTGTCCACTCCTGATGCTGTTATGGG
+      CAACCCTAAGGTGAAGGCTCATGGCAAGAAAGTGCTCGGTGCCTTTAGTGATGGCCTGGCTCACCTGGAC
+      AACCTCAAGGGCACCTTTGCCACACTGAGTGAGCTGCACTGTGACAAGCTGCACGTGGATCCTGAGAACT
+      TCAGGGTGAGTCTATGGGACGCTTGATGTTTTCTTTCCCCTTCTTTTCTATGGTTAAGTTCATGTCATAG
+      GAAGGGGATAAGTAACAGGGTACAGTTTAGAATGGGAAACAGACGAATGATTGCATCAGTGTGGAAGTCT
+      ```
+
+Next, create a new text file called `tallynt.py` with the following
+contents:
+
+```
+f = open("HBB.fa")
+line = f.readline()                  ## read the first line from HBB.fa
+print("The DNA sequence from gene:")
+print(line.strip())                  ## print the first line from HBB.fa
+
+seq = ""                             ## seq will store the whole gene DNA
+while (line) :                       ## while 'line' is not empty
+    line = f.readline()              ## read the next line from HBB.fa
+    seq = seq + line.strip()         ## concatenate that line to 'seq'
+
+v = list(seq)                        ## convert 'seq' into a vector 'v'
+n = len(v)                           ## calculate the length of vector 'v'
+print("has a total of %d nucleotides" %(n))
+```
+
+This Python program reads the lines from `HBB.fa` and concanates them
+into a single character strings called `seq`, which afterwards is
+converted into a vector `v` from which we calculate its length,
+corresponding to the total number of nucleotides in the DNA encoding
+the gene _HBB_. It includes a call to the method
+[`strip()`](https://www.w3schools.com/python/ref_string_strip.asp),
+which when called from a `str` object, it removes any leading and trailing
+spaces and newlines. When you run this program, the output must be as follows:
+
+```
+$ python tallynt.py
+The DNA sequence from gene:
+>NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+has a total of 1608 nucleotides
+```
+Now, improve this program with the following two enhancements:
+
+1. Enable the program to take the name of the FASTA file as a first
+  argument in the command line, so that it can work with any FASTA
+  file containing DNA from any gene. Run it, for instance, with the
+  DNA from the the
+  [_ACE2_ gene](https://www.ncbi.nlm.nih.gov/gene/59272), which
+  encodes a protein that acts as a receptor for the spike glycoprotein
+  of the human coronavirus SARS-CoV-2, the causative agent of
+  coronavirus disease-2019 (COVID-19), e.g.:
+      ```
+      $ python tallynt.py ACE2.fa
+      ```
+
+2. Enable the program to take a second argument where we specify one
+  of the four possible nucleotides (`A`, `C`, `G` or `T`) and it
+  calculates the number of occurrences of that nucleotide in the DNA
+  sequence of the gene, e.g.:
+
+      ```
+      $ python tallynt.py HBB.fa A
+      ```
+   You can verify whether the calculation is correct by doing it also
+   in Unix with the following command line:
+
+      ```
+      $ grep -v HBB HBB.fa | fold -1 | grep A | wc -l
+      411
+      ```
+   Try to understand what is doing each bit of the previous Unix
+   command-line. Could you think of a way to tally all four nucleotides
+   in the same command line?

@@ -18,7 +18,7 @@
 $ python --version</code></pre>
 <p>It may happen that you have two Python installations, one corresponding to version 2.x and another to version 3.x. In that situation the previous command may say that your Python version is 2.x and to access the version 3 you need to call the executable <code>python3</code>. Try then for instance:</p>
 <pre><code>$ python3 --version</code></pre>
-<p>If this is your case, then whenever the executable <code>python</code> is invoked in the rest of this practical, please use <code>python3</code> instead.</p>
+<p>If this is your case, then whenever the executable <code>python</code> is invoked in the rest of this practical, please use <code>python3</code> instead. Make a directory for this practical, called <code>practical5</code>, and store there the files generated during the practical.</p>
 <h1 id="relatively-prime-numbers">Relatively prime numbers</h1>
 <p>The Wikipedia <a href="https://en.wikipedia.org/wiki/Coprime_integers">page</a> for relatively prime numbers says:</p>
 <blockquote>
@@ -41,10 +41,15 @@ $ python --version</code></pre>
 main() ## THIS IS THE &quot;CALL&quot; TO THE FUNCTION main()</code></pre>
 <p>Verify that the program runs in exactly the same way as before you did these modifications. Now edit each of the programs again with the following two new updates:</p>
 <ol type="1">
-<li>Move the instructions that read the input outside the body of the <code>main()</code> function and place them right before the call to the <code>main()</code> function.</li>
-<li>Parametrize the <code>main()</code> function with the variables that store the input, i.e., writing <code>main(x)</code> if <code>x</code> were the variable that stores the input.</li>
+<li><p>Move the instructions that read the input outside the body of the <code>main()</code> function and place them right before the call to the <code>main()</code> function.</p></li>
+<li><p>Parametrize the <code>main()</code> function with the variables that store the input, i.e., writing <code>main(x)</code> if <code>x</code> were the variable that stores the input. At this point, verify that the program runs in exactly the same way as before.</p></li>
+<li><p>Replace the calls to the <code>print()</code> function, printing the result message, by an assignment of that result message to a variable called <code>res</code>. Insert the following line as last line in the body of the <code>main()</code> function:</p>
+<pre><code>return(res)</code></pre></li>
+<li><p>Replace the call to the function <code>main()</code> by:</p>
+<pre><code>print(main(x))</code></pre>
+<p>assuming that <code>x</code> is the name of the variable that stores the input.</p></li>
 </ol>
-<p>Verify that the program runs in exactly the same way as before these modifications. Try to understand the flow of the input information into the code that makes the actual calculations.</p>
+<p>Verify that the program runs in exactly the same way as before these modifications. Try to understand the flow of the input information into the code that makes the actual calculations and the flow of the output from the <code>main()</code> function to the screen.</p>
 <h1 id="execution-modes-in-python">Execution modes in Python</h1>
 <p>There are three main ways in which you can run a Python program:</p>
 <ol type="1">
@@ -88,10 +93,57 @@ argument vector position 3: 5</code></pre>
 <ol type="1">
 <li><p>Instead of asking the user to enter two values, it should take them from the Unix command-line arguments.</p></li>
 <li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
-<li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p></li>
-</ol>
+<li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p>
 <pre><code>$ python relprime.py
-error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre>
-<ol start="4" type="1">
-<li>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</li>
+error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre></li>
+<li><p>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</p></li>
+</ol>
+<h1 id="reading-dna-from-fasta-files">Reading DNA from FASTA files</h1>
+<p>Following the explanation from Wikipedia, in bioinformatics the <a href="https://en.wikipedia.org/wiki/FASTA_format"><strong>FASTA format</strong></a> is a text-based <a href="https://en.wikipedia.org/wiki/FASTA_format">file format</a> for representing sequences of either <a href="https://en.wikipedia.org/wiki/Nucleic_acid_sequence">nucleic acids</a> or <a href="https://en.wikipedia.org/wiki/Amino_acid">amino acids</a>. Here, we want to learn how can we read from a Python program the DNA sequence of a gene stored in FASTA format within a text file and make some simple summaries of the DNA content from that gene. We are going to illustrate that task with the <a href="https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta"><em>hemoglobin subunit beta</em> (HBB) gene</a>, which is a gene coding for a protein that forms part of <a href="https://en.wikipedia.org/wiki/Hemoglobin">haemoglobin</a>, the molecule responsible for transporting oxygen in <a href="https://en.wikipedia.org/wiki/Red_blood_cell">red blood cells</a> of almost all <a href="https://en.wikipedia.org/wiki/Vertebrate">vertebrates</a>.</p>
+<p>First, let’s download the FASTA file of the DNA of the human <em>HBB</em> gene following these steps:</p>
+<ol type="1">
+<li><p>Go to the NCBI web page for the human <em>HBB</em> gene at this <a href="https://www.ncbi.nlm.nih.gov/gene/3043">link</a>.</p></li>
+<li><p>Click on <code>Download Datasets</code> and in the popup window the <code>Gene sequences (FASTA) option should be checked. Press the   button</code>Download<code>. A ZIP file called</code>HBB_datasets.zip` will be downloaded, store it into the folder for this practical.</p></li>
+<li><p>Uncompress the file <code>HBB_datasets.zip</code> and copy the file <code>ncbi_dataset/data/gene.fna</code> to your CWD under the name <code>HBB.fa</code>. This is the FASTA file containing the DNA of the human <em>HBB</em> gene.</p></li>
+<li><p>Examine the first lines of this FASTA file with the Unix <code>head</code> command. The result should be as follows:</p>
+<pre><code>$ head HBB.fa
+&gt;NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+ACATTTGCTTCTGACACAACTGTGTTCACTAGCAACCTCAAACAGACACCATGGTGCATCTGACTCCTGA
+GGAGAAGTCTGCCGTTACTGCCCTGTGGGGCAAGGTGAACGTGGATGAAGTTGGTGGTGAGGCCCTGGGC
+AGGTTGGTATCAAGGTTACAAGACAGGTTTAAGGAGACCAATAGAAACTGGGCATGTGGAGACAGAGAAG
+ACTCTTGGGTTTCTGATAGGCACTGACTCTCTCTGCCTATTGGTCTATTTTCCCACCCTTAGGCTGCTGG
+TGGTCTACCCTTGGACCCAGAGGTTCTTTGAGTCCTTTGGGGATCTGTCCACTCCTGATGCTGTTATGGG
+CAACCCTAAGGTGAAGGCTCATGGCAAGAAAGTGCTCGGTGCCTTTAGTGATGGCCTGGCTCACCTGGAC
+AACCTCAAGGGCACCTTTGCCACACTGAGTGAGCTGCACTGTGACAAGCTGCACGTGGATCCTGAGAACT
+TCAGGGTGAGTCTATGGGACGCTTGATGTTTTCTTTCCCCTTCTTTTCTATGGTTAAGTTCATGTCATAG
+GAAGGGGATAAGTAACAGGGTACAGTTTAGAATGGGAAACAGACGAATGATTGCATCAGTGTGGAAGTCT</code></pre></li>
+</ol>
+<p>Next, create a new text file called <code>tallynt.py</code> with the following contents:</p>
+<pre><code>f = open(&quot;HBB.fa&quot;)
+line = f.readline()                  ## read the first line from HBB.fa
+print(&quot;The DNA sequence from gene:&quot;)
+print(line.strip())                  ## print the first line from HBB.fa
+
+seq = &quot;&quot;                             ## seq will store the whole gene DNA
+while (line) :                       ## while &#39;line&#39; is not empty
+    line = f.readline()              ## read the next line from HBB.fa
+    seq = seq + line.strip()         ## concatenate that line to &#39;seq&#39;
+
+v = list(seq)                        ## convert &#39;seq&#39; into a vector &#39;v&#39;
+n = len(v)                           ## calculate the length of vector &#39;v&#39;
+print(&quot;has a total of %d nucleotides&quot; %(n))</code></pre>
+<p>This Python program reads the lines from <code>HBB.fa</code> and concanates them into a single character strings called <code>seq</code>, which afterwards is converted into a vector <code>v</code> from which we calculate its length, corresponding to the total number of nucleotides in the DNA encoding the gene <em>HBB</em>. It includes a call to the method <a href="https://www.w3schools.com/python/ref_string_strip.asp"><code>strip()</code></a>, which when called from a <code>str</code> object, it removes any leading and trailing spaces and newlines. When you run this program, the output must be as follows:</p>
+<pre><code>$ python tallynt.py
+The DNA sequence from gene:
+&gt;NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+has a total of 1608 nucleotides</code></pre>
+<p>Now, improve this program with the following two enhancements:</p>
+<ol type="1">
+<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272"><em>ACE2</em> gene</a>, which encodes a protein that acts as a receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2, the causative agent of coronavirus disease-2019 (COVID-19), e.g.: <code>$ python tallynt.py ACE2.fa</code></p></li>
+<li><p>Enable the program to take a second argument where we specify one of the four possible nucleotides (<code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>) and it calculates the number of occurrences of that nucleotide in the DNA sequence of the gene, e.g.:</p>
+<pre><code>$ python tallynt.py HBB.fa A</code></pre>
+<p>You can verify whether the calculation is correct by doing it also in Unix with the following command line:</p>
+<pre><code>$ grep -v HBB HBB.fa | fold -1 | grep A | wc -l
+411</code></pre>
+<p>Try to understand what is doing each bit of the previous Unix command-line. Could you think of a way to tally all four nucleotides in the same command line?</p></li>
 </ol>
