@@ -11,7 +11,6 @@ The learning objectives for this practical are:
  * Implement a program in Python that decides if two given numbers are relatively primes.
  * Implement a program in Python that decides if a given number is cool.
  * Bundling lines together into functions.
- * Execution modes in Python.
  * How to take arguments from the command line.
  * Reading DNA from FASTA files.
  * Make syntax errors in Python.
@@ -127,65 +126,6 @@ modifications. Try to understand the flow of the input information into
 the code that makes the actual calculations and the flow of the output
 from the `main()` function to the screen.
 
-# Execution modes in Python
-
-There are three main ways in which you can run a Python program:
-
-1. Running it from the Unix shell command line.
-
-2. Interactively, through the Python shell interpreter.
-
-3. Importing Python code as a so-called _module_ into another Python program.
-
-Actually, the first two ways are equivalent and only the third one is
-qualitatively different from the first two. To understand that difference we
-need to learn that Python defines for us a variable called
-[`__name__`](https://docs.python.org/3/library/__main__.html),
-in which Python stores the name of the _scope_ in which top-level code
-executes. This _scope name_ will be either the name of the module to which
-the code belongs to, when running in the previously described situation (3),
-or the value `__main__`, when running in one of the previously situations
-described in (1) and (2).
-
-Create a text file called `thismodule.py` and put the following line on it:
-
-```
-print("__name__: %s" %(__name__))
-```
-
-Now let's call this Python program from the Unix shell command line:
-
-```
-$ python thismodule.py 
-__name__: __main__
-```
-
-We can see that when calling the Python program `thismodule.py` from the
-Unix shell command line, the `__name__` variable takes the value `__main__`.
-Now start the Python shell interpreter (calling `python` or `python3` from
-the Unix command line without arguments), directly type the `__name__`
-variable and hit the `Enter` key:
-
-```
->>> __name__
-`__main__`
-```
-
-We also see here that in the Python interactive prompt `__name__` takes the
-value `__main__`. Finally, from this same prompt let's import the code in
-`thismodule.py` as if we were importing it in some other Python program:
-
-```
->>> import thismodule
-__name__: thismodule
-```
-
-Differentely to the previous two execution modes, when importing Python code
-as a _module_ (see the slide about modules on
-[this lecture](https://funcompbio.github.io/lecture5/#15)),
-the `__name__` variable takes the value of the module name, defined by the
-filename containing the imported code, without the `.py` extension.
-
 # How to take arguments from the command line.
 
 Programs such as Unix commands, may take the so-called
@@ -204,29 +144,27 @@ allow us to re-use programs with different input and enable automatizing
 section how can we take command-line arguments through the code in our own
 Python programs.
 
-We have seen in the previous section that the `__name__` variable allows us
-to detect in our Python code when it is executing from the Unix shell
-command line. In this particular execution mode, we can use the Python
-module `sys` to fetch argument values given by the user in the command line.
-To illustrate this functionality, edit the previous file `thismodule.py` and
-add the following lines:
+We can use the Python module `sys` (to refresh the concept of a Python module,
+see the corresponding section in
+[this lecture](https://funcompbio.github.io/lecture5/#15))
+to fetch argument values given by the user in the command line. To illustrate
+this functionality, create a text file called `showargs.py` and add the
+following lines:
 
 ```
-if __name__ == "__main__" :
-  import sys
-  i = 0
-  while i < len(sys.argv) :
-    print("argument vector position %d: %s" %(i, sys.argv[i]))
-    i = i + 1
+import sys
+i = 0
+while i < len(sys.argv) :
+  print("argument vector position %d: %s" %(i, sys.argv[i]))
+  i = i + 1
 ```
 
 If you call this program from the Unix command line with the arguments
 `give me 5`, you should be getting the following output:
 
 ```
-$ python thismodule.py give me 5
-__name__: __main__
-argument vector position 0: thismodule.py
+$ python showargs.py give me 5
+argument vector position 0: showargs.py
 argument vector position 1: give
 argument vector position 2: me
 argument vector position 3: 5
