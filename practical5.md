@@ -25,7 +25,7 @@ to focus the time of this practical in addressing the technical challenges
 of running a Python program and correcting run-time errors.
 
 Whenever you are stuck with an error, please consult the section
-entitled "Debugging" from [practical 4](/practical4#debugging/).
+entitled "Debugging" from [practical 4](/practical4#debugging).
 
 # Setup and background
 
