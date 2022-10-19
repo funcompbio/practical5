@@ -229,22 +229,28 @@ following these steps:
 
 1. Go to the NCBI web page for the human _HBB_ gene at this
   [link](https://www.ncbi.nlm.nih.gov/gene/3043).
-2. Click on `Download Datasets` and in the popup window the
-  `Gene sequences (FASTA)` option should be checked. Press the
-  button `Download`. A ZIP file called `HBB_datasets.zip` will
-  be downloaded, store it into the folder for this practical.
-3. Uncompress the file `HBB_datasets.zip` and copy the file
-      ```
-      ncbi_dataset/data/gene.fna
-      ```
-   to your CWD under the name `HBB.fa`. This is the FASTA file
-   containing the DNA of the human _HBB_ gene.
-4. Examine the first lines of this FASTA file with the Unix
+2. Scroll down to the section entitled "Genomic regions, transcripts and
+   products" and click on the link called `FASTA`, as indicated by the
+   red arrow in the following image.
+
+   ![](ncbigene1.jpg)
+
+3. In the next page, click on the link called `Send to:`, from the
+   pull-down menu click on `File` and finally on the button
+   `Create File`, as indicated by the red arrows in the following image.
+
+   ![](ncbigene2.jpg)
+
+4. A file called `sequence.fasta` will be downloaded from your browser,
+   probably into your downloads directory. Move it into the folder that
+   you are using for this practical under the name `HBB.fa`. This is the
+   FASTA file containing the DNA of the human _HBB_ gene.
+5. Examine the first lines of this FASTA file with the Unix
    `head` command. The result should be as follows:
 
       ```
       $ head HBB.fa
-      >NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+      >NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
       ACATTTGCTTCTGACACAACTGTGTTCACTAGCAACCTCAAACAGACACCATGGTGCATCTGACTCCTGA
       GGAGAAGTCTGCCGTTACTGCCCTGTGGGGCAAGGTGAACGTGGATGAAGTTGGTGGTGAGGCCCTGGGC
       AGGTTGGTATCAAGGTTACAAGACAGGTTTAAGGAGACCAATAGAAACTGGGCATGTGGAGACAGAGAAG
@@ -295,10 +301,20 @@ When you run this program, the output must be as follows:
 ```
 $ python tallynt.py
 The DNA sequence from gene:
->NC_000011.10:c5227071-5225464 HBB [organism=Homo sapiens] [GeneID=3043] [chromosome=11]
+>NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
 has a total of 1608 nucleotides
 ```
-Now, improve this program with the following two enhancements:
+Notice that you could also count the nucleotides using a Unix shell command line
+as follows:
+```
+$ grep -v '>' HBB.fa | fold -1 | wc -l
+1609
+```
+Try to understand what is doing each bit of the previous Unix
+command-line. Could you figure out why this command line is giving a number
+that is one unit larger than what our Python programe gives?
+
+Next, improve the Python program with the following two enhancements:
 
 1. Enable the program to take the name of the FASTA file as a first
   argument in the command line, so that it can work with any FASTA
@@ -325,9 +341,9 @@ Now, improve this program with the following two enhancements:
    in Unix with the following command line:
 
       ```
-      $ grep -v HBB HBB.fa | fold -1 | grep A | wc -l
+      $ grep -v '>' HBB.fa | fold -1 | grep A | wc -l
       411
       ```
-   Try to understand what is doing each bit of the previous Unix
-   command-line. Could you think of a way to tally all four nucleotides
+   Try to understand what is doing each bit of the previous Unix shell
+   command line. Could you think of a way to tally all four nucleotides
    in the same command line?
