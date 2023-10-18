@@ -8,7 +8,7 @@ permalink: /practical5/
 
 The learning objectives for this practical are:
 
- * Implement a program in Python that decides if two given numbers are relatively primes.
+ * Implement a program in Python that decides if two given numbers are relatively prime.
  * Implement a program in Python that decides if a given number is cool.
  * Bundling lines together into functions.
  * How to take arguments from the command line.
@@ -146,7 +146,7 @@ Python programs.
 
 We can use the Python module `sys` (to refresh the concept of a Python module,
 see the corresponding section in
-[this lecture](https://funcompbio.github.io/lecture5/#15))
+[this lecture](https://funcompbio.github.io/lecture5/#22))
 to fetch argument values given by the user in the command line. To illustrate
 this functionality, create a text file called `showargs.py` and add the
 following lines:
@@ -155,7 +155,7 @@ following lines:
 import sys
 i = 0
 while i < len(sys.argv) :
-  print("argument vector position %d: %s" %(i, sys.argv[i]))
+  print(f"argument vector position {i}: {sys.argv[i]}")
   i = i + 1
 ```
 
@@ -185,7 +185,7 @@ from the Unix command-line arguments.
 are relatively prime should be encapsulated into a function called
 `main(x, y)` with two arguments `x` and `y` corresponding to the two
 numbers to be evaluated; see the slides on functions from
-[this lecture](https://funcompbio.github.io/lecture5/#11).
+[this lecture](https://funcompbio.github.io/lecture5/#18).
 The function `main(x, y)` should return a character string
 value set to `yes` when `x` and `y` are relatively prime and `no` when
 they are not. This function **should not** print anything on the screen.
@@ -208,9 +208,8 @@ take its result and print it in the terminal screen.
 # Reading DNA from FASTA files
 
 Following the explanation from Wikipedia, in bioinformatics
-the [**FASTA format**](https://en.wikipedia.org/wiki/FASTA_format) is a
-text-based [file format](https://en.wikipedia.org/wiki/FASTA_format)
-for representing sequences of either
+the [FASTA format](https://en.wikipedia.org/wiki/FASTA_format) is a
+text-based file format for representing sequences of either
 [nucleic acids](https://en.wikipedia.org/wiki/Nucleic_acid_sequence) or
 [amino acids](https://en.wikipedia.org/wiki/Amino_acid). Here, we want
 to learn how can we read from a Python program the DNA sequence of a gene
@@ -278,7 +277,7 @@ while (line) :                       ## while 'line' is not empty
 
 v = list(seq)                        ## convert 'seq' into a vector 'v'
 n = len(v)                           ## calculate the length of vector 'v'
-print("has a total of %d nucleotides" %(n))
+print(f"has a total of {n} nucleotides")
 ```
 
 This Python program reads the lines from `HBB.fa` and concanates them
