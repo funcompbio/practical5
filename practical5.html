@@ -1,7 +1,7 @@
 <h1 id="objectives">Objectives</h1>
 <p>The learning objectives for this practical are:</p>
 <ul>
-<li>Implement a program in Python that decides if two given numbers are relatively primes.</li>
+<li>Implement a program in Python that decides if two given numbers are relatively prime.</li>
 <li>Implement a program in Python that decides if a given number is cool.</li>
 <li>Bundling lines together into functions.</li>
 <li>How to take arguments from the command line.</li>
@@ -54,11 +54,11 @@ main() ## THIS IS THE &quot;CALL&quot; TO THE FUNCTION main()</code></pre>
 <p>Programs such as Unix commands, may take the so-called <a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line arguments</a>, which allow programs to read different input each time we run them For instance, the <code>cp</code> file-copying command requires two arguments, the file to copy and the target directory or file where it should be copied, for instance:</p>
 <pre><code>$ cp ~/Download/rawData.zip .</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">Command-line arguments</a> allow us to re-use programs with different input and enable automatizing <a href="https://en.wikipedia.org/wiki/Workflow">workflows</a>. We will see in this section how can we take command-line arguments through the code in our own Python programs.</p>
-<p>We can use the Python module <code>sys</code> (to refresh the concept of a Python module, see the corresponding section in <a href="https://funcompbio.github.io/lecture5/#15">this lecture</a>) to fetch argument values given by the user in the command line. To illustrate this functionality, create a text file called <code>showargs.py</code> and add the following lines:</p>
+<p>We can use the Python module <code>sys</code> (to refresh the concept of a Python module, see the corresponding section in <a href="https://funcompbio.github.io/lecture5/#22">this lecture</a>) to fetch argument values given by the user in the command line. To illustrate this functionality, create a text file called <code>showargs.py</code> and add the following lines:</p>
 <pre><code>import sys
 i = 0
 while i &lt; len(sys.argv) :
-  print(&quot;argument vector position %d: %s&quot; %(i, sys.argv[i]))
+  print(f&quot;argument vector position {i}: {sys.argv[i]}&quot;)
   i = i + 1</code></pre>
 <p>If you call this program from the Unix command line with the arguments <code>give me 5</code>, you should be getting the following output:</p>
 <pre><code>$ python showargs.py give me 5
@@ -70,14 +70,14 @@ argument vector position 3: 5</code></pre>
 <p>Make a new version of the Python program that decides whether two positive integer numbers are relatively prime with the following characteristics:</p>
 <ol type="1">
 <li><p>Instead of asking the user to enter two values, it should take them from the Unix command-line arguments.</p></li>
-<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#11">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
+<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#18">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
 <li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p>
 <pre><code>$ python relprime.py
 error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre></li>
 <li><p>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</p></li>
 </ol>
 <h1 id="reading-dna-from-fasta-files">Reading DNA from FASTA files</h1>
-<p>Following the explanation from Wikipedia, in bioinformatics the <a href="https://en.wikipedia.org/wiki/FASTA_format"><strong>FASTA format</strong></a> is a text-based <a href="https://en.wikipedia.org/wiki/FASTA_format">file format</a> for representing sequences of either <a href="https://en.wikipedia.org/wiki/Nucleic_acid_sequence">nucleic acids</a> or <a href="https://en.wikipedia.org/wiki/Amino_acid">amino acids</a>. Here, we want to learn how can we read from a Python program the DNA sequence of a gene stored in FASTA format within a text file and make some simple summaries of the DNA content from that gene. We are going to illustrate that task with the <a href="https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta"><em>hemoglobin subunit beta</em> (HBB) gene</a>, which is a gene coding for a protein that forms part of <a href="https://en.wikipedia.org/wiki/Hemoglobin">haemoglobin</a>, the molecule responsible for transporting oxygen in <a href="https://en.wikipedia.org/wiki/Red_blood_cell">red blood cells</a> of almost all <a href="https://en.wikipedia.org/wiki/Vertebrate">vertebrates</a>.</p>
+<p>Following the explanation from Wikipedia, in bioinformatics the <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA format</a> is a text-based file format for representing sequences of either <a href="https://en.wikipedia.org/wiki/Nucleic_acid_sequence">nucleic acids</a> or <a href="https://en.wikipedia.org/wiki/Amino_acid">amino acids</a>. Here, we want to learn how can we read from a Python program the DNA sequence of a gene stored in FASTA format within a text file and make some simple summaries of the DNA content from that gene. We are going to illustrate that task with the <a href="https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta"><em>hemoglobin subunit beta</em> (HBB) gene</a>, which is a gene coding for a protein that forms part of <a href="https://en.wikipedia.org/wiki/Hemoglobin">haemoglobin</a>, the molecule responsible for transporting oxygen in <a href="https://en.wikipedia.org/wiki/Red_blood_cell">red blood cells</a> of almost all <a href="https://en.wikipedia.org/wiki/Vertebrate">vertebrates</a>.</p>
 <p>First, let’s download the FASTA file of the DNA of the human <em>HBB</em> gene following these steps:</p>
 <ol type="1">
 <li>Go to the NCBI web page for the human <em>HBB</em> gene at this <a href="https://www.ncbi.nlm.nih.gov/gene/3043">link</a>.</li>
@@ -112,7 +112,7 @@ while (line) :                       ## while &#39;line&#39; is not empty
 
 v = list(seq)                        ## convert &#39;seq&#39; into a vector &#39;v&#39;
 n = len(v)                           ## calculate the length of vector &#39;v&#39;
-print(&quot;has a total of %d nucleotides&quot; %(n))</code></pre>
+print(f&quot;has a total of {n} nucleotides&quot;)</code></pre>
 <p>This Python program reads the lines from <code>HBB.fa</code> and concanates them into a single character string called <code>seq</code>, which afterwards is converted into a vector <code>v</code>, from which we calculate its length, corresponding to the total number of nucleotides in the DNA encoding the gene <em>HBB</em>. It includes a call to the following functions:</p>
 <ul>
 <li><a href="https://www.w3schools.com/python/ref_func_open.asp"><code>open()</code></a>, which opens a text file and returns an object that allows one to read lines from that file using the method <a href="https://www.w3schools.com/python/ref_file_readline.asp"><code>f.readline()</code></a>, for some file object <code>f</code>.</li>
