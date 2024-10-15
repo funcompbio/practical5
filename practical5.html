@@ -5,7 +5,6 @@
 <li>Implement a program in Python that decides if a given number is cool.</li>
 <li>Bundling lines together into functions.</li>
 <li>How to take arguments from the command line.</li>
-<li>Reading DNA from FASTA files.</li>
 <li>Make syntax errors in Python.</li>
 <li>Correct syntax errors in Python.</li>
 <li>Debug your program when it doesn’t work.</li>
@@ -54,7 +53,7 @@ main() ## THIS IS THE &quot;CALL&quot; TO THE FUNCTION main()</code></pre>
 <p>Programs such as Unix commands, may take the so-called <a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line arguments</a>, which allow programs to read different input each time we run them For instance, the <code>cp</code> file-copying command requires two arguments, the file to copy and the target directory or file where it should be copied, for instance:</p>
 <pre><code>$ cp ~/Download/rawData.zip .</code></pre>
 <p><a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">Command-line arguments</a> allow us to re-use programs with different input and enable automatizing <a href="https://en.wikipedia.org/wiki/Workflow">workflows</a>. We will see in this section how can we take command-line arguments through the code in our own Python programs.</p>
-<p>We can use the Python module <code>sys</code> (to refresh the concept of a Python module, see the corresponding section in <a href="https://funcompbio.github.io/lecture5/#22">this lecture</a>) to fetch argument values given by the user in the command line. To illustrate this functionality, create a text file called <code>showargs.py</code> and add the following lines:</p>
+<p>We can use the Python module <code>sys</code> (to refresh the concept of a Python module, see the corresponding section in <a href="https://funcompbio.github.io/lecture5/#25">this lecture</a>) to fetch argument values given by the user in the command line. To illustrate this functionality, create a text file called <code>showargs.py</code> and add the following lines:</p>
 <pre><code>import sys
 i = 0
 while i &lt; len(sys.argv) :
@@ -70,71 +69,11 @@ argument vector position 3: 5</code></pre>
 <p>Make a new version of the Python program that decides whether two positive integer numbers are relatively prime with the following characteristics:</p>
 <ol type="1">
 <li><p>Instead of asking the user to enter two values, it should take them from the Unix command-line arguments.</p></li>
-<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#18">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
+<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#20">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
 <li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p>
 <pre><code>$ python relprime.py
 error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre></li>
-<li><p>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen.</p></li>
-</ol>
-<h1 id="reading-dna-from-fasta-files">Reading DNA from FASTA files</h1>
-<p>Following the explanation from Wikipedia, in bioinformatics the <a href="https://en.wikipedia.org/wiki/FASTA_format">FASTA format</a> is a text-based file format for representing sequences of either <a href="https://en.wikipedia.org/wiki/Nucleic_acid_sequence">nucleic acids</a> or <a href="https://en.wikipedia.org/wiki/Amino_acid">amino acids</a>. Here, we want to learn how can we read from a Python program the DNA sequence of a gene stored in FASTA format within a text file and make some simple summaries of the DNA content from that gene. We are going to illustrate that task with the <a href="https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta"><em>hemoglobin subunit beta</em> (HBB) gene</a>, which is a gene coding for a protein that forms part of <a href="https://en.wikipedia.org/wiki/Hemoglobin">haemoglobin</a>, the molecule responsible for transporting oxygen in <a href="https://en.wikipedia.org/wiki/Red_blood_cell">red blood cells</a> of almost all <a href="https://en.wikipedia.org/wiki/Vertebrate">vertebrates</a>.</p>
-<p>First, let’s download the FASTA file of the DNA of the human <em>HBB</em> gene following these steps:</p>
-<ol type="1">
-<li>Go to the NCBI web page for the human <em>HBB</em> gene at this <a href="https://www.ncbi.nlm.nih.gov/gene/3043">link</a>.</li>
-<li><p>Scroll down to the section entitled “Genomic regions, transcripts and products” and click on the link called <code>FASTA</code>, as indicated by the red arrow in the following image.</p>
-<p><img src="ncbigene1.jpg" /></p></li>
-<li><p>In the next page, click on the link called <code>Send to:</code>, from the pull-down menu click on <code>File</code> and finally on the button <code>Create File</code>, as indicated by the red arrows in the following image.</p>
-<p><img src="ncbigene2.jpg" /></p></li>
-<li>A file called <code>sequence.fasta</code> will be downloaded from your browser, probably into your downloads directory. Move it into the folder that you are using for this practical under the name <code>HBB.fa</code>. This is the FASTA file containing the DNA of the human <em>HBB</em> gene.</li>
-<li><p>Examine the first lines of this FASTA file with the Unix <code>head</code> command. The result should be as follows:</p>
-<pre><code>$ head HBB.fa
-&gt;NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
-ACATTTGCTTCTGACACAACTGTGTTCACTAGCAACCTCAAACAGACACCATGGTGCATCTGACTCCTGA
-GGAGAAGTCTGCCGTTACTGCCCTGTGGGGCAAGGTGAACGTGGATGAAGTTGGTGGTGAGGCCCTGGGC
-AGGTTGGTATCAAGGTTACAAGACAGGTTTAAGGAGACCAATAGAAACTGGGCATGTGGAGACAGAGAAG
-ACTCTTGGGTTTCTGATAGGCACTGACTCTCTCTGCCTATTGGTCTATTTTCCCACCCTTAGGCTGCTGG
-TGGTCTACCCTTGGACCCAGAGGTTCTTTGAGTCCTTTGGGGATCTGTCCACTCCTGATGCTGTTATGGG
-CAACCCTAAGGTGAAGGCTCATGGCAAGAAAGTGCTCGGTGCCTTTAGTGATGGCCTGGCTCACCTGGAC
-AACCTCAAGGGCACCTTTGCCACACTGAGTGAGCTGCACTGTGACAAGCTGCACGTGGATCCTGAGAACT
-TCAGGGTGAGTCTATGGGACGCTTGATGTTTTCTTTCCCCTTCTTTTCTATGGTTAAGTTCATGTCATAG
-GAAGGGGATAAGTAACAGGGTACAGTTTAGAATGGGAAACAGACGAATGATTGCATCAGTGTGGAAGTCT</code></pre></li>
-</ol>
-<p>Next, create a new text file called <code>tallynt.py</code> with the following Python program:</p>
-<pre><code>f = open(&quot;HBB.fa&quot;)
-line = f.readline()                  ## read the first line from HBB.fa
-print(&quot;The DNA sequence from gene:&quot;)
-print(line.strip())                  ## print the first line from HBB.fa
-
-seq = &quot;&quot;                             ## seq will store the whole gene DNA
-while (line) :                       ## while &#39;line&#39; is not empty
-    line = f.readline()              ## read the next line from HBB.fa
-    seq = seq + line.strip()         ## concatenate that line to &#39;seq&#39;
-
-v = list(seq)                        ## convert &#39;seq&#39; into a vector &#39;v&#39;
-n = len(v)                           ## calculate the length of vector &#39;v&#39;
-print(f&quot;has a total of {n} nucleotides&quot;)</code></pre>
-<p>This Python program reads the lines from <code>HBB.fa</code> and concanates them into a single character string called <code>seq</code>, which afterwards is converted into a vector <code>v</code>, from which we calculate its length, corresponding to the total number of nucleotides in the DNA encoding the gene <em>HBB</em>. It includes a call to the following functions:</p>
-<ul>
-<li><a href="https://www.w3schools.com/python/ref_func_open.asp"><code>open()</code></a>, which opens a text file and returns an object that allows one to read lines from that file using the method <a href="https://www.w3schools.com/python/ref_file_readline.asp"><code>f.readline()</code></a>, for some file object <code>f</code>.</li>
-<li><a href="https://www.w3schools.com/python/ref_string_strip.asp"><code>str.strip()</code></a>, where <code>str</code> is some character string object and it removes any leading and trailing spaces and newlines from that string.</li>
-</ul>
-<p>When you run this program, the output must be as follows:</p>
-<pre><code>$ python tallynt.py
-The DNA sequence from gene:
-&gt;NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
-has a total of 1608 nucleotides</code></pre>
-<p>Notice that you could also count the nucleotides using a Unix shell command line as follows:</p>
-<pre><code>$ grep -v &#39;&gt;&#39; HBB.fa | fold -1 | wc -l
-1609</code></pre>
-<p>Try to understand what is doing each bit of the previous Unix command-line. Could you figure out why this command line is giving a number that is one unit larger than what our Python programe gives?</p>
-<p>Next, improve the Python program with the following two enhancements:</p>
-<ol type="1">
-<li><p>Enable the program to take the name of the FASTA file as a first argument in the command line, so that it can work with any FASTA file containing DNA from any gene. Run it, for instance, with the DNA from the the <a href="https://www.ncbi.nlm.nih.gov/gene/59272">angiotensin converting enzyme 2 (<em>ACE2</em>) gene</a>, which encodes a protein that acts as a <a href="https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html">receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2</a>, the causative agent of coronavirus disease-2019 (COVID-19), e.g.:</p>
-<pre><code>$ python tallynt.py ACE2.fa</code></pre></li>
-<li><p>Enable the program to take a second argument where we specify one of the four possible nucleotides (<code>A</code>, <code>C</code>, <code>G</code> or <code>T</code>) and it calculates the number of occurrences of that nucleotide in the DNA sequence of the gene, e.g.:</p>
-<pre><code>$ python tallynt.py HBB.fa A</code></pre>
-<p>You can verify whether the calculation is correct by doing it also in Unix with the following command line:</p>
-<pre><code>$ grep -v &#39;&gt;&#39; HBB.fa | fold -1 | grep A | wc -l
-411</code></pre>
-<p>Try to understand what is doing each bit of the previous Unix shell command line. Could you think of a way to tally all four nucleotides in the same command line?</p></li>
+<li><p>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen. For instance, this could be an example of a proper command-line call and its result.</p>
+<pre><code>$ python relprime.py 4 9
+relatively primes!</code></pre></li>
 </ol>
