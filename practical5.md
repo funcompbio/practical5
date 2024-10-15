@@ -12,7 +12,6 @@ The learning objectives for this practical are:
  * Implement a program in Python that decides if a given number is cool.
  * Bundling lines together into functions.
  * How to take arguments from the command line.
- * Reading DNA from FASTA files.
  * Make syntax errors in Python.
  * Correct syntax errors in Python.
  * Debug your program when it doesn't work.
@@ -146,7 +145,7 @@ Python programs.
 
 We can use the Python module `sys` (to refresh the concept of a Python module,
 see the corresponding section in
-[this lecture](https://funcompbio.github.io/lecture5/#22))
+[this lecture](https://funcompbio.github.io/lecture5/#25))
 to fetch argument values given by the user in the command line. To illustrate
 this functionality, create a text file called `showargs.py` and add the
 following lines:
@@ -185,7 +184,7 @@ from the Unix command-line arguments.
 are relatively prime should be encapsulated into a function called
 `main(x, y)` with two arguments `x` and `y` corresponding to the two
 numbers to be evaluated; see the slides on functions from
-[this lecture](https://funcompbio.github.io/lecture5/#18).
+[this lecture](https://funcompbio.github.io/lecture5/#20).
 The function `main(x, y)` should return a character string
 value set to `yes` when `x` and `y` are relatively prime and `no` when
 they are not. This function **should not** print anything on the screen.
@@ -203,146 +202,11 @@ message like:
 4. When the program is properly called from the command line with the two
 arguments corresponding to the two positive integer values to evaluate,
 then the program should call the previously defined `main(x, y)` function,
-take its result and print it in the terminal screen.
+take its result and print it in the terminal screen. For instance, this
+could be an example of a proper command-line call and its result.
 
-# Reading DNA from FASTA files
+    ```
+    $ python relprime.py 4 9
+    relatively primes!
+    ```
 
-Following the explanation from Wikipedia, in bioinformatics
-the [FASTA format](https://en.wikipedia.org/wiki/FASTA_format) is a
-text-based file format for representing sequences of either
-[nucleic acids](https://en.wikipedia.org/wiki/Nucleic_acid_sequence) or
-[amino acids](https://en.wikipedia.org/wiki/Amino_acid). Here, we want
-to learn how can we read from a Python program the DNA sequence of a gene
-stored in FASTA format within a text file and make some simple summaries
-of the DNA content from that gene. We are going to illustrate
-that task with the 
-[_hemoglobin subunit beta_ (HBB) gene](https://en.wikipedia.org/wiki/Hemoglobin_subunit_beta), which is a gene coding for a protein that forms part of
-[haemoglobin](https://en.wikipedia.org/wiki/Hemoglobin), the molecule
-responsible for transporting oxygen in
-[red blood cells](https://en.wikipedia.org/wiki/Red_blood_cell) of
-almost all
-[vertebrates](https://en.wikipedia.org/wiki/Vertebrate).
-
-First, let's download the FASTA file of the DNA of the human _HBB_ gene
-following these steps:
-
-1. Go to the NCBI web page for the human _HBB_ gene at this
-  [link](https://www.ncbi.nlm.nih.gov/gene/3043).
-2. Scroll down to the section entitled "Genomic regions, transcripts and
-   products" and click on the link called `FASTA`, as indicated by the
-   red arrow in the following image.
-
-   ![](ncbigene1.jpg)
-
-3. In the next page, click on the link called `Send to:`, from the
-   pull-down menu click on `File` and finally on the button
-   `Create File`, as indicated by the red arrows in the following image.
-
-   ![](ncbigene2.jpg)
-
-4. A file called `sequence.fasta` will be downloaded from your browser,
-   probably into your downloads directory. Move it into the folder that
-   you are using for this practical under the name `HBB.fa`. This is the
-   FASTA file containing the DNA of the human _HBB_ gene.
-5. Examine the first lines of this FASTA file with the Unix
-   `head` command. The result should be as follows:
-
-      ```
-      $ head HBB.fa
-      >NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
-      ACATTTGCTTCTGACACAACTGTGTTCACTAGCAACCTCAAACAGACACCATGGTGCATCTGACTCCTGA
-      GGAGAAGTCTGCCGTTACTGCCCTGTGGGGCAAGGTGAACGTGGATGAAGTTGGTGGTGAGGCCCTGGGC
-      AGGTTGGTATCAAGGTTACAAGACAGGTTTAAGGAGACCAATAGAAACTGGGCATGTGGAGACAGAGAAG
-      ACTCTTGGGTTTCTGATAGGCACTGACTCTCTCTGCCTATTGGTCTATTTTCCCACCCTTAGGCTGCTGG
-      TGGTCTACCCTTGGACCCAGAGGTTCTTTGAGTCCTTTGGGGATCTGTCCACTCCTGATGCTGTTATGGG
-      CAACCCTAAGGTGAAGGCTCATGGCAAGAAAGTGCTCGGTGCCTTTAGTGATGGCCTGGCTCACCTGGAC
-      AACCTCAAGGGCACCTTTGCCACACTGAGTGAGCTGCACTGTGACAAGCTGCACGTGGATCCTGAGAACT
-      TCAGGGTGAGTCTATGGGACGCTTGATGTTTTCTTTCCCCTTCTTTTCTATGGTTAAGTTCATGTCATAG
-      GAAGGGGATAAGTAACAGGGTACAGTTTAGAATGGGAAACAGACGAATGATTGCATCAGTGTGGAAGTCT
-      ```
-
-Next, create a new text file called `tallynt.py` with the following
-Python program:
-
-```
-f = open("HBB.fa")
-line = f.readline()                  ## read the first line from HBB.fa
-print("The DNA sequence from gene:")
-print(line.strip())                  ## print the first line from HBB.fa
-
-seq = ""                             ## seq will store the whole gene DNA
-while (line) :                       ## while 'line' is not empty
-    line = f.readline()              ## read the next line from HBB.fa
-    seq = seq + line.strip()         ## concatenate that line to 'seq'
-
-v = list(seq)                        ## convert 'seq' into a vector 'v'
-n = len(v)                           ## calculate the length of vector 'v'
-print(f"has a total of {n} nucleotides")
-```
-
-This Python program reads the lines from `HBB.fa` and concanates them
-into a single character string called `seq`, which afterwards is
-converted into a vector `v`, from which we calculate its length,
-corresponding to the total number of nucleotides in the DNA encoding
-the gene _HBB_. It includes a call to the following functions:
-
-* [`open()`](https://www.w3schools.com/python/ref_func_open.asp),
-  which opens a text file and returns an object that allows one to read
-  lines from that file using the method
-  [`f.readline()`](https://www.w3schools.com/python/ref_file_readline.asp),
-  for some file object `f`.
-* [`str.strip()`](https://www.w3schools.com/python/ref_string_strip.asp),
-  where `str` is some character string object and it removes any leading and
-  trailing spaces and newlines from that string.
-
-When you run this program, the output must be as follows:
-
-```
-$ python tallynt.py
-The DNA sequence from gene:
->NC_000011.10:c5227071-5225464 Homo sapiens chromosome 11, GRCh38.p14 Primary Assembly
-has a total of 1608 nucleotides
-```
-Notice that you could also count the nucleotides using a Unix shell command line
-as follows:
-```
-$ grep -v '>' HBB.fa | fold -1 | wc -l
-1609
-```
-Try to understand what is doing each bit of the previous Unix
-command-line. Could you figure out why this command line is giving a number
-that is one unit larger than what our Python programe gives?
-
-Next, improve the Python program with the following two enhancements:
-
-1. Enable the program to take the name of the FASTA file as a first
-  argument in the command line, so that it can work with any FASTA
-  file containing DNA from any gene. Run it, for instance, with the
-  DNA from the the
-  [angiotensin converting enzyme 2 (_ACE2_) gene](https://www.ncbi.nlm.nih.gov/gene/59272),
-  which encodes a protein that acts as a
-  [receptor for the spike glycoprotein of the human coronavirus SARS-CoV-2](https://www.nytimes.com/interactive/2020/03/11/science/how-coronavirus-hijacks-your-cells.html),
-  the causative agent of coronavirus disease-2019 (COVID-19), e.g.:
-
-      ```
-      $ python tallynt.py ACE2.fa
-      ```
-
-2. Enable the program to take a second argument where we specify one
-  of the four possible nucleotides (`A`, `C`, `G` or `T`) and it
-  calculates the number of occurrences of that nucleotide in the DNA
-  sequence of the gene, e.g.:
-
-      ```
-      $ python tallynt.py HBB.fa A
-      ```
-   You can verify whether the calculation is correct by doing it also
-   in Unix with the following command line:
-
-      ```
-      $ grep -v '>' HBB.fa | fold -1 | grep A | wc -l
-      411
-      ```
-   Try to understand what is doing each bit of the previous Unix shell
-   command line. Could you think of a way to tally all four nucleotides
-   in the same command line?
