@@ -78,7 +78,7 @@ the given number is cool or not, providing some message with the `print()` funct
 Programming instructions performing a specific task, such as the calculation
 of a particular value or decision, can be bundled together under a so-called
 [function](https://en.wikipedia.org/wiki/Subroutine); see the slides on
-functions from [this lecture](https://funcompbio.github.io/lecture5/#11).
+functions from [this lecture](https://funcompbio.github.io/lecture5/#20).
 
 Edit the previous two programs and, in each of them, bundle together the
 code into a function called `main()` and put a call to that function
