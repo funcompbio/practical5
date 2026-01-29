@@ -1,35 +1,83 @@
 <h1 id="objectives">Objectives</h1>
 <p>The learning objectives for this practical are:</p>
 <ul>
-<li>Implement a program in Python that decides if two given numbers are relatively prime.</li>
-<li>Implement a program in Python that decides if a given number is cool.</li>
+<li>Implement a program in Python that decides if two given numbers are
+relatively prime.</li>
+<li>Implement a program in Python that decides if a given number is
+cool.</li>
 <li>Bundling lines together into functions.</li>
 <li>How to take arguments from the command line.</li>
 <li>Make syntax errors in Python.</li>
 <li>Correct syntax errors in Python.</li>
 <li>Debug your program when it doesn’t work.</li>
 </ul>
-<p>For the problems in which you have to implement a program that solves some arithmetic problem that we have solved in class at the blackboard, you should have already one working solution from that class on paper. If you don’t, please ask a colleague for one. Try to focus the time of this practical in addressing the technical challenges of running a Python program and correcting run-time errors.</p>
-<p>Whenever you are stuck with an error, please consult the section entitled “Debugging” from <a href="/practical4#debugging">practical 4</a>.</p>
+<p>For the problems in which you have to implement a program that solves
+some arithmetic problem that we have solved in class at the blackboard,
+you should have already one working solution from that class on paper.
+If you don’t, please ask a colleague for one. Try to focus the time of
+this practical in addressing the technical challenges of running a
+Python program and correcting run-time errors.</p>
+<p>Whenever you are stuck with an error, please consult the section
+entitled “Debugging” from <a href="/practical4#debugging">practical
+4</a>.</p>
 <h1 id="setup-and-background">Setup and background</h1>
-<p>To do this practical you need an installation of Python version 3. You can find the instructions in the <a href="/setup#python-and-jupyter-notebook/">setup</a> link on how to install Python version 3 in your system. Once Python is installed, you should be able to call it from the shell in the terminal window. You can check whether that is possible by typing:</p>
+<p>To do this practical you need an installation of Python version 3.
+You can find the instructions in the <a
+href="/setup#python-and-jupyter-notebook/">setup</a> link on how to
+install Python version 3 in your system. Once Python is installed, you
+should be able to call it from the shell in the terminal window. You can
+check whether that is possible by typing:</p>
 <pre><code>$ which python
 $ python --version</code></pre>
-<p>It may happen that you have two Python installations, one corresponding to version 2.x and another to version 3.x. In that situation the previous command may say that your Python version is 2.x and to access the version 3 you need to call the executable <code>python3</code>. Try then for instance:</p>
+<p>It may happen that you have two Python installations, one
+corresponding to version 2.x and another to version 3.x. In that
+situation the previous command may say that your Python version is 2.x
+and to access the version 3 you need to call the executable
+<code>python3</code>. Try then for instance:</p>
 <pre><code>$ python3 --version</code></pre>
-<p>If this is your case, then whenever the executable <code>python</code> is invoked in the rest of this practical, please use <code>python3</code> instead. Make a directory for this practical, called <code>practical5</code>, and store there the files generated during the practical.</p>
+<p>If this is your case, then whenever the executable
+<code>python</code> is invoked in the rest of this practical, please use
+<code>python3</code> instead. Make a directory for this practical,
+called <code>practical5</code>, and store there the files generated
+during the practical.</p>
 <h1 id="relatively-prime-numbers">Relatively prime numbers</h1>
-<p>The Wikipedia <a href="https://en.wikipedia.org/wiki/Coprime_integers">page</a> for relatively prime numbers says:</p>
+<p>The Wikipedia <a
+href="https://en.wikipedia.org/wiki/Coprime_integers">page</a> for
+relatively prime numbers says:</p>
 <blockquote>
-<p>In number theory, two integers a and b are relatively prime, mutually prime, or coprime if the only positive integer that evenly divides (is a divisor of) both of them is 1. One says also a is prime to b or a is coprime with b. Consequently, any prime number that divides one of a or b does not divide the other. This is equivalent to their greatest common divisor (gcd) being 1.</p>
+<p>In number theory, two integers a and b are relatively prime, mutually
+prime, or coprime if the only positive integer that evenly divides (is a
+divisor of) both of them is 1. One says also a is prime to b or a is
+coprime with b. Consequently, any prime number that divides one of a or
+b does not divide the other. This is equivalent to their greatest common
+divisor (gcd) being 1.</p>
 </blockquote>
-<p>Implement a program in Python that asks for two positive integer numbers and says whether they are relatively prime or not, providing some message with the <code>print()</code> function.</p>
+<p>Implement a program in Python that asks for two positive integer
+numbers and says whether they are relatively prime or not, providing
+some message with the <code>print()</code> function.</p>
 <h1 id="cool-numbers">Cool numbers</h1>
-<p>We say that a positive integer number <code>x</code> is <strong>cool</strong> if this number is equal to the sum of any sequence of increasing consecutive positive integer numbers smaller or equal than <code>x</code>, starting on 1. For instance, number 1 is cool because the only positive integer number smaller or equal than 1 is 1 itself; number 2 is not cool because neither 1 nor 1+2 are equal to 2; number 3 is cool because 3=1+2. Until 10, numbers 4, 5, 7, 8 and 9 are not cool. However, 6=1+2+3 and 10=1+2+3+4 are indeed cool.</p>
-<p>Implement a program in Python that asks for one positive integer number and says whether the given number is cool or not, providing some message with the <code>print()</code> function.</p>
-<h1 id="bundling-lines-together-into-functions">Bundling lines together into functions</h1>
-<p>Programming instructions performing a specific task, such as the calculation of a particular value or decision, can be bundled together under a so-called <a href="https://en.wikipedia.org/wiki/Subroutine">function</a>; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#20">this lecture</a>.</p>
-<p>Edit the previous two programs and, in each of them, bundle together the code into a function called <code>main()</code> and put a call to that function <code>main()</code> at the bottom of the file, i.e.:</p>
+<p>We say that a positive integer number <code>x</code> is
+<strong>cool</strong> if this number is equal to the sum of any sequence
+of increasing consecutive positive integer numbers smaller or equal than
+<code>x</code>, starting on 1. For instance, number 1 is cool because
+the only positive integer number smaller or equal than 1 is 1 itself;
+number 2 is not cool because neither 1 nor 1+2 are equal to 2; number 3
+is cool because 3=1+2. Until 10, numbers 4, 5, 7, 8 and 9 are not cool.
+However, 6=1+2+3 and 10=1+2+3+4 are indeed cool.</p>
+<p>Implement a program in Python that asks for one positive integer
+number and says whether the given number is cool or not, providing some
+message with the <code>print()</code> function.</p>
+<h1 id="bundling-lines-together-into-functions">Bundling lines together
+into functions</h1>
+<p>Programming instructions performing a specific task, such as the
+calculation of a particular value or decision, can be bundled together
+under a so-called <a
+href="https://en.wikipedia.org/wiki/Subroutine">function</a>; see the
+slides on functions from <a
+href="https://funcompbio.github.io/lecture5/#20">this lecture</a>.</p>
+<p>Edit the previous two programs and, in each of them, bundle together
+the code into a function called <code>main()</code> and put a call to
+that function <code>main()</code> at the bottom of the file, i.e.:</p>
 <pre><code>def main() :
   ## CODE OF YOUR PYTHON PROGRAM
   ## INDENTED TO BECOME BUNDLED
@@ -38,42 +86,98 @@ $ python --version</code></pre>
   ## OF THE FUNCTION
 
 main() ## THIS IS THE &quot;CALL&quot; TO THE FUNCTION main()</code></pre>
-<p>Verify that the program runs in exactly the same way as before you did these modifications. Now edit each of the programs again with the following two new updates:</p>
+<p>Verify that the program runs in exactly the same way as before you
+did these modifications. Now edit each of the programs again with the
+following two new updates:</p>
 <ol type="1">
-<li>Move the instructions that read the input outside the body of the <code>main()</code> function and place them right before the call to the <code>main()</code> function.</li>
-<li>Parametrize the <code>main()</code> function with the variables that store the input, i.e., writing <code>main(x)</code> if <code>x</code> were the variable that stores the input. At this point, verify that the program runs in exactly the same way as before.</li>
-<li><p>Replace the calls to the <code>print()</code> function, printing the result message, by an assignment of that result message to a variable called <code>res</code>. Insert the following line as last line in the body of the <code>main()</code> function:</p>
+<li><p>Move the instructions that read the input outside the body of the
+<code>main()</code> function and place them right before the call to the
+<code>main()</code> function.</p></li>
+<li><p>Parametrize the <code>main()</code> function with the variables
+that store the input, i.e., writing <code>main(x)</code> if
+<code>x</code> were the variable that stores the input. At this point,
+verify that the program runs in exactly the same way as before.</p></li>
+<li><p>Replace the calls to the <code>print()</code> function, printing
+the result message, by an assignment of that result message to a
+variable called <code>res</code>. Insert the following line as last line
+in the body of the <code>main()</code> function:</p>
 <pre><code>return(res)</code></pre></li>
 <li><p>Replace the call to the function <code>main()</code> by:</p>
 <pre><code>print(main(x))</code></pre>
-<p>assuming that <code>x</code> is the name of the variable that stores the input.</p></li>
+<p>assuming that <code>x</code> is the name of the variable that stores
+the input.</p></li>
 </ol>
-<p>Verify that the program runs in exactly the same way as before these modifications. Try to understand the flow of the input information into the code that makes the actual calculations and the flow of the output from the <code>main()</code> function to the screen.</p>
-<h1 id="how-to-take-arguments-from-the-command-line.">How to take arguments from the command line.</h1>
-<p>Programs such as Unix commands, may take the so-called <a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line arguments</a>, which allow programs to read different input each time we run them For instance, the <code>cp</code> file-copying command requires two arguments, the file to copy and the target directory or file where it should be copied, for instance:</p>
+<p>Verify that the program runs in exactly the same way as before these
+modifications. Try to understand the flow of the input information into
+the code that makes the actual calculations and the flow of the output
+from the <code>main()</code> function to the screen.</p>
+<h1 id="how-to-take-arguments-from-the-command-line.">How to take
+arguments from the command line.</h1>
+<p>Programs such as Unix commands, may take the so-called <a
+href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">command-line
+arguments</a>, which allow programs to read different input each time we
+run them For instance, the <code>cp</code> file-copying command requires
+two arguments, the file to copy and the target directory or file where
+it should be copied, for instance:</p>
 <pre><code>$ cp ~/Download/rawData.zip .</code></pre>
-<p><a href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">Command-line arguments</a> allow us to re-use programs with different input and enable automatizing <a href="https://en.wikipedia.org/wiki/Workflow">workflows</a>. We will see in this section how can we take command-line arguments through the code in our own Python programs.</p>
-<p>We can use the Python module <code>sys</code> (to refresh the concept of a Python module, see the corresponding section in <a href="https://funcompbio.github.io/lecture5/#25">this lecture</a>) to fetch argument values given by the user in the command line. To illustrate this functionality, create a text file called <code>showargs.py</code> and add the following lines:</p>
+<p><a
+href="https://en.wikipedia.org/wiki/Command-line_interface#Arguments">Command-line
+arguments</a> allow us to re-use programs with different input and
+enable automatizing <a
+href="https://en.wikipedia.org/wiki/Workflow">workflows</a>. We will see
+in this section how can we take command-line arguments through the code
+in our own Python programs.</p>
+<p>We can use the Python module <code>sys</code> (to refresh the concept
+of a Python module, see the corresponding section in <a
+href="https://funcompbio.github.io/lecture5/#25">this lecture</a>) to
+fetch argument values given by the user in the command line. To
+illustrate this functionality, create a text file called
+<code>showargs.py</code> and add the following lines:</p>
 <pre><code>import sys
 i = 0
 while i &lt; len(sys.argv) :
   print(f&quot;argument vector position {i}: {sys.argv[i]}&quot;)
   i = i + 1</code></pre>
-<p>If you call this program from the Unix command line with the arguments <code>give me 5</code>, you should be getting the following output:</p>
+<p>If you call this program from the Unix command line with the
+arguments <code>give me 5</code>, you should be getting the following
+output:</p>
 <pre><code>$ python showargs.py give me 5
 argument vector position 0: showargs.py
 argument vector position 1: give
 argument vector position 2: me
 argument vector position 3: 5</code></pre>
-<p>Try to understand what are the contents of the vector <code>argv</code> in the module <code>sys</code> in the previous execution mode. Once you have understood that, try to complete the following exercise.</p>
-<p>Make a new version of the Python program that decides whether two positive integer numbers are relatively prime with the following characteristics:</p>
+<p>Try to understand what are the contents of the vector
+<code>argv</code> in the module <code>sys</code> in the previous
+execution mode. Once you have understood that, try to complete the
+following exercise.</p>
+<p>Make a new version of the Python program that decides whether two
+positive integer numbers are relatively prime with the following
+characteristics:</p>
 <ol type="1">
-<li><p>Instead of asking the user to enter two values, it should take them from the Unix command-line arguments.</p></li>
-<li><p>The code doing the actual calculation on whether two given numbers are relatively prime should be encapsulated into a function called <code>main(x, y)</code> with two arguments <code>x</code> and <code>y</code> corresponding to the two numbers to be evaluated; see the slides on functions from <a href="https://funcompbio.github.io/lecture5/#20">this lecture</a>. The function <code>main(x, y)</code> should return a character string value set to <code>yes</code> when <code>x</code> and <code>y</code> are relatively prime and <code>no</code> when they are not. This function <strong>should not</strong> print anything on the screen.</p></li>
-<li><p>When the program is called from the command line without the two arguments corresponding to the two positive integer values to evaluate, then for a program called, e.g., <code>relprime.py</code>, the user should get a message like:</p>
+<li><p>Instead of asking the user to enter two values, it should take
+them from the Unix command-line arguments.</p></li>
+<li><p>The code doing the actual calculation on whether two given
+numbers are relatively prime should be encapsulated into a function
+called <code>main(x, y)</code> with two arguments <code>x</code> and
+<code>y</code> corresponding to the two numbers to be evaluated; see the
+slides on functions from <a
+href="https://funcompbio.github.io/lecture5/#20">this lecture</a>. The
+function <code>main(x, y)</code> should return a character string value
+set to <code>yes</code> when <code>x</code> and <code>y</code> are
+relatively prime and <code>no</code> when they are not. This function
+<strong>should not</strong> print anything on the screen.</p></li>
+<li><p>When the program is called from the command line without the two
+arguments corresponding to the two positive integer values to evaluate,
+then for a program called, e.g., <code>relprime.py</code>, the user
+should get a message like:</p>
 <pre><code>$ python relprime.py
 error: relprime.py &lt;x&gt; &lt;y&gt;</code></pre></li>
-<li><p>When the program is properly called from the command line with the two arguments corresponding to the two positive integer values to evaluate, then the program should call the previously defined <code>main(x, y)</code> function, take its result and print it in the terminal screen. For instance, this could be an example of a proper command-line call and its result.</p>
+<li><p>When the program is properly called from the command line with
+the two arguments corresponding to the two positive integer values to
+evaluate, then the program should call the previously defined
+<code>main(x, y)</code> function, take its result and print it in the
+terminal screen. For instance, this could be an example of a proper
+command-line call and its result.</p>
 <pre><code>$ python relprime.py 4 9
-relatively primes!</code></pre></li>
+yes</code></pre></li>
 </ol>
