@@ -207,6 +207,6 @@ could be an example of a proper command-line call and its result.
 
     ```
     $ python relprime.py 4 9
-    relatively primes!
+    yes
     ```
 
